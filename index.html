@@ -1,123 +1,125 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>RServer Config UI</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>RServer Config UI</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="sidebar">
-  <h2>Config UI</h2>
-  <ul>
-    <li onclick="showDashboard()">Dashboard</li>
-    <li onclick="showCompare()">Compare</li>
-  </ul>
-</div>
-
-<div class="main">
-
-<h1>Cluster : rserver-api</h1>
-
-<!-- DASHBOARD -->
-<div id="dashboard">
-
-<div class="cards">
-  <div class="card">
-    <h3>Total Keys</h3>
-    <p id="totalKeys">0</p>
+  <div class="sidebar">
+    <h2>Config UI</h2>
+    <ul>
+      <li onclick="showDashboard()">Dashboard</li>
+      <li onclick="showCompare()">Compare</li>
+    </ul>
   </div>
-  <div class="card">
-    <h3>Match</h3>
-    <p id="matchCount">0</p>
+
+  <div class="main">
+
+    <h1>Cluster : rserver-api</h1>
+
+    <!-- DASHBOARD -->
+    <div id="dashboard">
+
+      <div class="cards">
+        <div class="card">
+          <h3>Total Keys</h3>
+          <p id="totalKeys">0</p>
+        </div>
+        <div class="card">
+          <h3>Match</h3>
+          <p id="matchCount">0</p>
+        </div>
+        <div class="card">
+          <h3>Mismatch</h3>
+          <p id="mismatchCount">0</p>
+        </div>
+      </div>
+
+      <input type="text" id="search" placeholder="Search config key">
+
+      <div class="filters">
+        <button onclick="showAll()">Show All</button>
+        <button onclick="showMismatch()">Show Only Mismatch</button>
+      </div>
+
+      <!-- ✅ TEXTAREA INPUT -->
+      <div class="jsonUpload">
+        <label>DC0-RW JSON:</label>
+        <textarea id="dc0" rows="6"></textarea>
+      </div>
+
+      <div class="jsonUpload">
+        <label>DC1-RW JSON:</label>
+        <textarea id="dc1rw" rows="6"></textarea>
+      </div>
+
+      <div class="jsonUpload">
+        <label>DC1-RO JSON:</label>
+        <textarea id="dc1ro" rows="6"></textarea>
+      </div>
+
+      <button onclick="compareConfigs()">Compare</button>
+      <div id="tableContainer"></div>
+
+    </div>
+
+    <!-- COMPARE PANEL -->
+    <div id="comparePanel" style="display:none">
+      <h2>Compare Datacenters</h2>
+
+      <div class="compareBox">
+        <div>
+          <label>Source 1</label>
+          <select id="source1">
+            <option value="dc0rw">DC0-RW</option>
+            <option value="dc1rw">DC1-RW</option>
+            <option value="dc1ro">DC1-RO</option>
+          </select>
+        </div>
+        <div>
+          <label>Source 2</label>
+          <select id="source2">
+            <option value="dc1rw">DC1-RW</option>
+            <option value="dc1ro">DC1-RO</option>
+            <option value="dc0rw">DC0-RW</option>
+          </select>
+        </div>
+        <div style="align-self:end">
+          <button onclick="runCustomCompare()">Run Comparison</button>
+        </div>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Total Keys</h3>
+          <p id="compareTotal">0</p>
+        </div>
+        <div class="card">
+          <h3>Match</h3>
+          <p id="compareMatch">0</p>
+        </div>
+        <div class="card">
+          <h3>Mismatch</h3>
+          <p id="compareMismatch">0</p>
+        </div>
+      </div>
+
+      <div class="filters">
+        <button onclick="showAllCompare()">Show All</button>
+        <button onclick="showMismatchCompare()">Show Only Mismatch</button>
+      </div>
+
+      <div id="compareResult"></div>
+
+    </div>
+
   </div>
-  <div class="card">
-    <h3>Mismatch</h3>
-    <p id="mismatchCount">0</p>
-  </div>
-</div>
 
-<input type="text" id="search" placeholder="Search config key">
-
-<div class="filters">
-  <button onclick="showAll()">Show All</button>
-  <button onclick="showMismatch()">Show Only Mismatch</button>
-</div>
-
-<!-- ✅ TEXTAREA INPUT -->
-<div class="jsonUpload">
-  <label>DC0-RW JSON:</label>
-  <textarea id="dc0" rows="6"></textarea>
-</div>
-
-<div class="jsonUpload">
-  <label>DC1-RW JSON:</label>
-  <textarea id="dc1rw" rows="6"></textarea>
-</div>
-
-<div class="jsonUpload">
-  <label>DC1-RO JSON:</label>
-  <textarea id="dc1ro" rows="6"></textarea>
-</div>
-
-<button onclick="compareConfigs()">Compare</button>
-<div id="tableContainer"></div>
-
-</div>
-
-<!-- COMPARE PANEL -->
-<div id="comparePanel" style="display:none">
-<h2>Compare Datacenters</h2>
-
-<div class="compareBox">
-  <div>
-    <label>Source 1</label>
-    <select id="source1">
-      <option value="dc0rw">DC0-RW</option>
-      <option value="dc1rw">DC1-RW</option>
-      <option value="dc1ro">DC1-RO</option>
-    </select>
-  </div>
-  <div>
-    <label>Source 2</label>
-    <select id="source2">
-      <option value="dc1rw">DC1-RW</option>
-      <option value="dc1ro">DC1-RO</option>
-      <option value="dc0rw">DC0-RW</option>
-    </select>
-  </div>
-  <div style="align-self:end">
-    <button onclick="runCustomCompare()">Run Comparison</button>
-  </div>
-</div>
-
-<div class="cards">
-  <div class="card">
-    <h3>Total Keys</h3>
-    <p id="compareTotal">0</p>
-  </div>
-  <div class="card">
-    <h3>Match</h3>
-    <p id="compareMatch">0</p>
-  </div>
-  <div class="card">
-    <h3>Mismatch</h3>
-    <p id="compareMismatch">0</p>
-  </div>
-</div>
-
-<div class="filters">
-  <button onclick="showAllCompare()">Show All</button>
-  <button onclick="showMismatchCompare()">Show Only Mismatch</button>
-</div>
-
-<div id="compareResult"></div>
-
-</div>
-
-</div>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>

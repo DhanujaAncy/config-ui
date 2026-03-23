@@ -1,0 +1,36 @@
+{
+  "defaults": {
+    "project": 1,
+    "env": 1
+  },
+  "actives": {
+    "project": 1,
+    "env": 1
+  },
+  "projects": [
+    {
+      "idx": 1,
+      "id": "34624000000011084",
+      "name": "Compare-ui",
+      "domain": {
+        "id": "50040183762",
+        "name": "compare-ui-60067766397.development"
+      },
+      "timezone": "Asia/Kolkata",
+      "env": [
+        {
+          "idx": 1,
+          "id": "60067766397",
+          "name": "Development",
+          "type": 3
+        },
+        {
+          "idx": 2,
+          "id": "50040186306",
+          "name": "Production",
+          "type": 1
+        }
+      ]
+    }
+  ]
+}

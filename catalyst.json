@@ -1,0 +1,9 @@
+{
+  "functions": {
+    "targets": [
+      "compare_ui_function"
+    ],
+    "ignore": [],
+    "source": "functions"
+  }
+}

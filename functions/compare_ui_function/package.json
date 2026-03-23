@@ -1,0 +1,10 @@
+{
+	"name": "compare_ui_function",
+	"version": "1.0.0",
+	"main": "index.js",
+	"author": "dhanuja.d@zohointern.com",
+	"dependencies": {
+		"cors": "^2.8.6",
+		"zcatalyst-sdk-node": "latest"
+	}
+}

@@ -1,0 +1,40 @@
+module.exports = async (req, res) => {
+
+  const { dc0, dc1rw, dc1ro } = req.body;
+
+  let map = {};
+
+  function extract(data,label){
+    data.forEach(section=>{
+      section.details.forEach(d=>{
+        if(!map[d.key]) map[d.key] = { type: section.type };
+        map[d.key][label] = d.value;
+      });
+    });
+  }
+
+  extract(dc0,"dc0");
+  extract(dc1rw,"dc1rw");
+  extract(dc1ro,"dc1ro");
+
+  let result = [];
+
+  Object.keys(map).forEach(key=>{
+    let v1 = map[key].dc0 || "";
+    let v2 = map[key].dc1rw || "";
+    let v3 = map[key].dc1ro || "";
+
+    let status = (v1===v2 && v2===v3) ? "MATCH" : "MISMATCH";
+
+    result.push({
+      key,
+      type: map[key].type,
+      dc0: v1,
+      dc1rw: v2,
+      dc1ro: v3,
+      status
+    });
+  });
+
+  res.send(result);
+};

@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function(){
       const dc1rwData = JSON.parse(document.getElementById("dc1rw").value);
       const dc1roData = JSON.parse(document.getElementById("dc1ro").value);
 
-      fetch("https://compare-ui-60067766397.development.catalystserverless.in/server/compare_ui_function/execute", {
+      fetch("https://compare-ui-60067766397.development.catalystserverless.in/server/compare/execute", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

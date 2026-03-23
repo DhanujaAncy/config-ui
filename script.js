@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function(){
         })
       })
       .then(res => res.json())
-      .then(data => { if(data.output) data = JSON.parse(data.output);
+      .then(rawData => { let data = rawData.output ? JSON.parse(rawData.output) : rawData; if(data.output) data = JSON.parse(data.output);
         console.log(data);
 
         compareData = data;       // store data globally
